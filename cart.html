@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shopping Cart - Toolkit</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <!-- ================================================================
+         HEADER & NAVIGATION
+         ================================================================ -->
+    <header class="header">
+        <nav class="navbar">
+            <a href="index.html" class="logo">🎨 Toolkit</a>
+            <ul class="nav-menu">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="products.html">Shop</a></li>
+                <li><a href="index.html#trending">Trending</a></li>
+                <li><a href="#">About</a></li>
+            </ul>
+            <div class="nav-right">
+                <a href="cart.html" class="cart-icon">
+                    🛒
+                    <span class="cart-counter">0</span>
+                </a>
+                <button class="dark-mode-toggle" title="Toggle dark mode">🌙</button>
+                <div class="auth-container"></div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- ================================================================
+         PAGE HEADER
+         ================================================================ -->
+    <section style="background: linear-gradient(135deg, var(--primary-light), var(--secondary-light)); padding: var(--sp-2xl) var(--sp-lg); text-align: center;">
+        <h1 style="color: var(--primary); margin-bottom: var(--sp-md);">Shopping Cart</h1>
+        <p>Review and manage your items</p>
+    </section>
+
+    <!-- ================================================================
+         CART CONTENT
+         ================================================================ -->
+    <div class="cart-container">
+        <!-- Cart Items -->
+        <div class="cart-items" id="cart-items-container">
+            <div class="empty-state">
+                <div class="empty-state-icon">🛒</div>
+                <h3>Your cart is empty</h3>
+                <p>Add some awesome stationery to get started!</p>
+                <a href="products.html" class="btn btn-primary btn-large" style="margin-top: var(--sp-md);">Continue Shopping</a>
+            </div>
+        </div>
+
+        <!-- Cart Summary -->
+        <div class="cart-summary" id="cart-summary" style="display: none;">
+            <h3 style="margin-bottom: var(--sp-lg);">Order Summary</h3>
+            <div class="summary-row">
+                <span>Subtotal</span>
+                <span id="subtotal">₹0</span>
+            </div>
+            <div class="summary-row">
+                <span>Shipping</span>
+                <span id="shipping">FREE</span>
+            </div>
+            <div class="summary-row">
+                <span>Tax (5%)</span>
+                <span id="tax">₹0</span>
+            </div>
+            
+            <!-- Discount Code -->
+            <div style="margin-bottom: var(--sp-lg);">
+                <p style="font-size: var(--font-size-xs); color: var(--gray); margin-bottom: var(--sp-sm);">Have a promo code?</p>
+                <div style="display: flex; gap: var(--sp-sm);">
+                    <input type="text" id="discount-code" placeholder="e.g. WELCOME10" style="flex: 1; padding: var(--sp-sm); border: 2px solid var(--light); border-radius: var(--radius-md); font-size: var(--font-size-sm);">
+                    <button id="apply-discount" class="btn btn-secondary" style="padding: var(--sp-sm) var(--sp-md);">Apply</button>
+                </div>
+                <p id="discount-message" style="font-size: var(--font-size-xs); margin-top: var(--sp-sm); color: var(--success);"></p>
+            </div>
+
+            <div class="summary-total">
+                <span>Total</span>
+                <span id="total">₹0</span>
+            </div>
+
+            <a href="checkout.html" class="btn btn-primary btn-large btn-block">Proceed to Checkout</a>
+            <a href="products.html" class="btn btn-outline btn-large btn-block" style="margin-top: var(--sp-md);">Continue Shopping</a>
+        </div>
+    </div>
+
+    <!-- ================================================================
+         FOOTER
+         ================================================================ -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>About Toolkit</h4>
+                <p>Your one-stop destination for premium stationery and art supplies</p>
+            </div>
+            <div class="footer-section">
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="products.html">Shop</a></li>
+                    <li><a href="#">About Us</a></li>
+                    <li><a href="#">Contact</a></li>
+                    <li><a href="#">Blog</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Customer Service</h4>
+                <ul>
+                    <li><a href="#">Track Order</a></li>
+                    <li><a href="#">Returns</a></li>
+                    <li><a href="#">FAQs</a></li>
+                    <li><a href="#">Support</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Follow Us</h4>
+                <p>Connect on social media</p>
+                <div style="display: flex; gap: var(--sp-md); font-size: 24px; margin-top: var(--sp-md);">
+                    <a href="#" style="color: white; text-decoration: none;">📱</a>
+                    <a href="#" style="color: white; text-decoration: none;">🐦</a>
+                    <a href="#" style="color: white; text-decoration: none;">📸</a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 Toolkit. All rights reserved. Built for creators. 🎨</p>
+        </div>
+    </footer>
+
+    <!-- ================================================================
+         SCRIPTS
+         ================================================================ -->
+    <script src="js/data.js"></script>
+    <script src="js/cart.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/main.js"></script>
+    <script>
+        let appliedDiscount = 0;
+
+        function renderCart() {
+            const cart = cartManager.getCart();
+            const container = document.getElementById('cart-items-container');
+
+            if (cart.length === 0) {
+                container.innerHTML = `
+                    <div class="empty-state">
+                        <div class="empty-state-icon">🛒</div>
+                        <h3>Your cart is empty</h3>
+                        <p>Add some awesome stationery to get started!</p>
+                        <a href="products.html" class="btn btn-primary btn-large" style="margin-top: var(--sp-md);">Continue Shopping</a>
+                    </div>
+                `;
+                document.getElementById('cart-summary').style.display = 'none';
+                return;
+            }
+
+            document.getElementById('cart-summary').style.display = 'block';
+
+            container.innerHTML = cart.map(item => `
+                <div class="cart-item">
+                    <div class="cart-item-image">${item.image}</div>
+                    <div class="cart-item-info">
+                        <h4>${item.name}</h4>
+                        <p class="cart-item-price">${Toolkit.formatPrice(item.price)} each</p>
+                    </div>
+                    <div style="text-align: right;">
+                        <div class="quantity-selector">
+                            <button type="button" class="qty-minus" data-product-id="${item.id}">−</button>
+                            <input type="number" class="qty-input" value="${item.quantity}" min="1" data-product-id="${item.id}">
+                            <button type="button" class="qty-plus" data-product-id="${item.id}">+</button>
+                        </div>
+                        <p style="margin-top: var(--sp-md); font-weight: 700; color: var(--primary);">
+                            ${Toolkit.formatPrice(item.price * item.quantity)}
+                        </p>
+                        <button class="remove-btn" data-product-id="${item.id}" style="margin-top: var(--sp-sm);">Remove</button>
+                    </div>
+                </div>
+            `).join('');
+
+            // Quantity controls - minus button
+            container.querySelectorAll('.qty-minus').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const productId = parseInt(btn.getAttribute('data-product-id'));
+                    const currentQty = cartManager.getQuantityInCart(productId);
+                    if (currentQty > 1) {
+                        cartManager.updateQuantity(productId, currentQty - 1);
+                        renderCart();
+                        updateSummary();
+                    }
+                });
+            });
+
+            // Quantity controls - plus button
+            container.querySelectorAll('.qty-plus').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const productId = parseInt(btn.getAttribute('data-product-id'));
+                    const product = PRODUCTS.find(p => p.id === productId);
+                    const currentQty = cartManager.getQuantityInCart(productId);
+                    if (currentQty < product.stock) {
+                        cartManager.updateQuantity(productId, currentQty + 1);
+                        renderCart();
+                        updateSummary();
+                    }
+                });
+            });
+
+            // Quantity controls - input field
+            container.querySelectorAll('.qty-input').forEach(input => {
+                input.addEventListener('change', () => {
+                    const productId = parseInt(input.getAttribute('data-product-id'));
+                    const newQty = parseInt(input.value);
+                    if (newQty > 0) {
+                        cartManager.updateQuantity(productId, newQty);
+                        renderCart();
+                        updateSummary();
+                    }
+                });
+            });
+
+            // Remove item button
+            container.querySelectorAll('.remove-btn').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const productId = parseInt(btn.getAttribute('data-product-id'));
+                    const product = PRODUCTS.find(p => p.id === productId);
+                    if (confirm(`Remove ${product.name} from cart?`)) {
+                        cartManager.removeFromCart(productId);
+                        Toolkit.showToast(`${product.name} removed from cart`);
+                        renderCart();
+                        updateSummary();
+                    }
+                });
+            });
+
+            updateSummary();
+        }
+
+        function updateSummary() {
+            const subtotal = cartManager.getCartTotal();
+            const tax = Math.round(subtotal * 0.05);
+            const discount = Math.round(subtotal * appliedDiscount);
+            const total = subtotal + tax - discount;
+
+            document.getElementById('subtotal').textContent = Toolkit.formatPrice(subtotal);
+            document.getElementById('tax').textContent = Toolkit.formatPrice(tax);
+            document.getElementById('total').textContent = Toolkit.formatPrice(total);
+        }
+
+        // Apply discount code
+        document.getElementById('apply-discount').addEventListener('click', () => {
+            const code = document.getElementById('discount-code').value.toUpperCase();
+            const discount = cartManager.applyDiscount(code);
+            const message = document.getElementById('discount-message');
+
+            if (discount > 0) {
+                appliedDiscount = discount;
+                const discountPercent = Math.round(discount * 100);
+                message.textContent = `✓ Code applied! ${discountPercent}% off`;
+                message.style.color = 'var(--success)';
+                Toolkit.showToast(`${discountPercent}% discount applied! 🎉`);
+                updateSummary();
+            } else if (code) {
+                message.textContent = '✗ Invalid code';
+                message.style.color = 'var(--error)';
+                Toolkit.showToast('Invalid discount code', 'error');
+            }
+        });
+
+        // Subscribe to cart changes
+        cartManager.subscribe(() => {
+            renderCart();
+        });
+
+        // Initial render
+        renderCart();
+    </script>
+</body>
+</html>
