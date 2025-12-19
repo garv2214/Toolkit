@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product - Toolkit</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <!-- ================================================================
+         HEADER & NAVIGATION
+         ================================================================ -->
+    <header class="header">
+        <nav class="navbar">
+            <a href="index.html" class="logo">🎨 Toolkit</a>
+            <ul class="nav-menu">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="products.html">Shop</a></li>
+                <li><a href="index.html#trending">Trending</a></li>
+                <li><a href="#">About</a></li>
+            </ul>
+            <div class="nav-right">
+                <a href="cart.html" class="cart-icon">
+                    🛒
+                    <span class="cart-counter">0</span>
+                </a>
+                <button class="dark-mode-toggle" title="Toggle dark mode">🌙</button>
+                <div class="auth-container"></div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- ================================================================
+         PRODUCT DETAILS
+         ================================================================ -->
+    <div class="products-section" style="max-width: 1200px; margin: 0 auto;">
+        <div id="product-detail"></div>
+    </div>
+
+    <!-- ================================================================
+         RELATED PRODUCTS
+         ================================================================ -->
+    <section class="products-section" style="background-color: var(--lighter); padding: var(--sp-2xl) var(--sp-lg);">
+        <div class="section-title">
+            <h2>Related Products</h2>
+            <p>You might also like these items</p>
+        </div>
+        <div class="products-grid" id="related-products"></div>
+    </section>
+
+    <!-- ================================================================
+         FOOTER
+         ================================================================ -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>About Toolkit</h4>
+                <p>Your one-stop destination for premium stationery and art supplies</p>
+            </div>
+            <div class="footer-section">
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="products.html">Shop</a></li>
+                    <li><a href="#">About Us</a></li>
+                    <li><a href="#">Contact</a></li>
+                    <li><a href="#">Blog</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Customer Service</h4>
+                <ul>
+                    <li><a href="#">Track Order</a></li>
+                    <li><a href="#">Returns</a></li>
+                    <li><a href="#">FAQs</a></li>
+                    <li><a href="#">Support</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Follow Us</h4>
+                <p>Connect on social media</p>
+                <div style="display: flex; gap: var(--sp-md); font-size: 24px; margin-top: var(--sp-md);">
+                    <a href="#" style="color: white; text-decoration: none;">📱</a>
+                    <a href="#" style="color: white; text-decoration: none;">🐦</a>
+                    <a href="#" style="color: white; text-decoration: none;">📸</a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 Toolkit. All rights reserved. Built for creators. 🎨</p>
+        </div>
+    </footer>
+
+    <!-- ================================================================
+         SCRIPTS
+         ================================================================ -->
+    <script src="js/data.js"></script>
+    <script src="js/cart.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/main.js"></script>
+    <script>
+        // Get product ID from URL
+        const productId = parseInt(Toolkit.getUrlParam('id'));
+
+        if (!productId || !PRODUCTS.find(p => p.id === productId)) {
+            document.getElementById('product-detail').innerHTML = `
+                <div class="empty-state">
+                    <div class="empty-state-icon">❌</div>
+                    <h3>Product Not Found</h3>
+                    <p>The product you're looking for doesn't exist.</p>
+                    <a href="products.html" class="btn btn-primary btn-large" style="margin-top: var(--sp-md);">Back to Products</a>
+                </div>
+            `;
+            return;
+        }
+
+        const product = PRODUCTS.find(p => p.id === productId);
+
+        // Render product detail
+        document.getElementById('product-detail').innerHTML = `
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: var(--sp-2xl); margin: var(--sp-2xl) 0; align-items: start;">
+                <!-- Product Image -->
+                <div style="background-color: var(--lighter); border-radius: var(--radius-lg); padding: var(--sp-2xl); display: flex; align-items: center; justify-content: center; aspect-ratio: 1;">
+                    <div style="font-size: 200px;">${product.image}</div>
+                </div>
+
+                <!-- Product Info -->
+                <div>
+                    <div style="display: flex; align-items: center; gap: var(--sp-md); margin-bottom: var(--sp-lg);">
+                        <h1 style="margin: 0;">${product.name}</h1>
+                        ${product.stock < 10 ? '<span class="badge badge-limited">Limited Stock</span>' : ''}
+                    </div>
+
+                    <p style="color: var(--gray); margin-bottom: var(--sp-lg);">${CATEGORIES[product.category].name}</p>
+
+                    <!-- Rating -->
+                    <div style="display: flex; align-items: center; gap: var(--sp-md); margin-bottom: var(--sp-lg);">
+                        <span style="font-size: 24px;">${'⭐'.repeat(Math.round(product.rating))}</span>
+                        <span style="font-weight: 600; color: var(--gray);">${product.rating} / 5</span>
+                    </div>
+
+                    <!-- Price -->
+                    <div style="font-size: 36px; font-weight: 700; color: var(--primary); margin-bottom: var(--sp-lg);">${Toolkit.formatPrice(product.price)}</div>
+
+                    <!-- Stock Status -->
+                    <p style="margin-bottom: var(--sp-lg); font-weight: 600;">
+                        ${product.stock > 0 ? `<span style="color: var(--success);">✓ In Stock (${product.stock} available)</span>` : '<span style="color: var(--error);">Out of Stock</span>'}
+                    </p>
+
+                    <!-- Description -->
+                    <p style="margin-bottom: var(--sp-lg); line-height: 1.8;">${product.description}</p>
+
+                    <!-- Quantity Selector -->
+                    <div class="form-group" style="margin-bottom: var(--sp-lg);">
+                        <label for="quantity" style="margin-bottom: var(--sp-sm);">Quantity</label>
+                        <div style="display: flex; gap: var(--sp-md); align-items: center;">
+                            <div class="quantity-selector">
+                                <button type="button" id="qty-minus">−</button>
+                                <input type="number" id="quantity" value="1" min="1" max="${product.stock}">
+                                <button type="button" id="qty-plus">+</button>
+                            </div>
+                            <button id="add-to-cart-btn" class="btn btn-primary btn-large">🛒 Add to Cart</button>
+                        </div>
+                    </div>
+
+                    <!-- Features -->
+                    <div style="background-color: var(--lighter); padding: var(--sp-lg); border-radius: var(--radius-md);">
+                        <h4 style="margin-bottom: var(--sp-md);">Product Highlights</h4>
+                        <ul style="list-style: none; padding: 0;">
+                            <li style="padding: var(--sp-sm) 0; border-bottom: 1px solid var(--light);">✓ Premium Quality</li>
+                            <li style="padding: var(--sp-sm) 0; border-bottom: 1px solid var(--light);">✓ Fast Shipping</li>
+                            <li style="padding: var(--sp-sm) 0; border-bottom: 1px solid var(--light);">✓ 30-Day Returns</li>
+                            <li style="padding: var(--sp-sm) 0;">✓ Authentic Guarantee</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        `;
+
+        // Quantity controls
+        const quantityInput = document.getElementById('quantity');
+        document.getElementById('qty-minus').addEventListener('click', () => {
+            if (quantityInput.value > 1) {
+                quantityInput.value--;
+            }
+        });
+        document.getElementById('qty-plus').addEventListener('click', () => {
+            if (quantityInput.value < product.stock) {
+                quantityInput.value++;
+            }
+        });
+
+        // Add to cart button
+        document.getElementById('add-to-cart-btn').addEventListener('click', () => {
+            const quantity = parseInt(quantityInput.value);
+            cartManager.addToCart(product, quantity);
+            Toolkit.showToast(`${product.name} added to cart! 🛒`, 'success', 2000);
+            
+            // Reset quantity
+            quantityInput.value = 1;
+            
+            // Optional: redirect to cart after 1 second
+            setTimeout(() => {
+                if (confirm('Go to cart?')) {
+                    window.location.href = 'cart.html';
+                }
+            }, 1500);
+        });
+
+        // Render related products (same category)
+        const relatedProducts = PRODUCTS
+            .filter(p => p.category === product.category && p.id !== product.id)
+            .slice(0, 4);
+
+        const relatedContainer = document.getElementById('related-products');
+        if (relatedProducts.length > 0) {
+            relatedContainer.innerHTML = relatedProducts.map(p => `
+                <div class="product-card" data-product-id="${p.id}">
+                    <div class="product-image">${p.image}</div>
+                    <div class="product-content">
+                        <h3 class="product-name">${p.name}</h3>
+                        <p class="product-category">${CATEGORIES[p.category].name}</p>
+                        <div class="product-rating">
+                            <span class="stars">${'⭐'.repeat(Math.round(p.rating))}</span>
+                            <span class="rating-value">${p.rating}</span>
+                        </div>
+                        <div class="product-footer">
+                            <span class="product-price">${Toolkit.formatPrice(p.price)}</span>
+                            <button class="btn btn-add-to-cart" data-product-id="${p.id}">🛒 Add</button>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+
+            // Add event listeners
+            relatedContainer.querySelectorAll('.btn-add-to-cart').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const pId = parseInt(btn.getAttribute('data-product-id'));
+                    const p = PRODUCTS.find(prod => prod.id === pId);
+                    if (p) {
+                        cartManager.addToCart(p, 1);
+                        Toolkit.showToast(`${p.name} added to cart!`);
+                    }
+                });
+            });
+
+            relatedContainer.querySelectorAll('.product-card').forEach(card => {
+                card.addEventListener('click', (e) => {
+                    if (!e.target.closest('.btn-add-to-cart')) {
+                        const pId = card.getAttribute('data-product-id');
+                        window.location.href = `product.html?id=${pId}`;
+                    }
+                });
+            });
+        } else {
+            relatedContainer.innerHTML = '<p style="grid-column: 1 / -1; text-align: center;">No related products found.</p>';
+        }
+    </script>
+</body>
+</html>
