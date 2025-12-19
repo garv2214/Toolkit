@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout - Toolkit</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <!-- ================================================================
+         HEADER & NAVIGATION
+         ================================================================ -->
+    <header class="header">
+        <nav class="navbar">
+            <a href="index.html" class="logo">🎨 Toolkit</a>
+            <ul class="nav-menu">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="products.html">Shop</a></li>
+                <li><a href="index.html#trending">Trending</a></li>
+                <li><a href="#">About</a></li>
+            </ul>
+            <div class="nav-right">
+                <a href="cart.html" class="cart-icon">
+                    🛒
+                    <span class="cart-counter">0</span>
+                </a>
+                <button class="dark-mode-toggle" title="Toggle dark mode">🌙</button>
+                <div class="auth-container"></div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- ================================================================
+         PAGE HEADER
+         ================================================================ -->
+    <section style="background: linear-gradient(135deg, var(--primary-light), var(--secondary-light)); padding: var(--sp-2xl) var(--sp-lg); text-align: center;">
+        <h1 style="color: var(--primary); margin-bottom: var(--sp-md);">Checkout</h1>
+        <p id="checkout-status">Complete your purchase</p>
+    </section>
+
+    <!-- ================================================================
+         CHECKOUT CONTAINER
+         ================================================================ -->
+    <div class="checkout-container" id="checkout-form-container">
+        <div class="checkout-form">
+            <!-- STEP 1: SHIPPING ADDRESS -->
+            <div class="checkout-step">
+                <h3>📍 Shipping Address</h3>
+                <form id="shipping-form">
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: var(--sp-md);">
+                        <div class="form-group">
+                            <label for="first-name">First Name</label>
+                            <input type="text" id="first-name" name="firstName" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="last-name">Last Name</label>
+                            <input type="text" id="last-name" name="lastName" required>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="phone">Phone Number</label>
+                        <input type="tel" id="phone" name="phone" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="address">Street Address</label>
+                        <input type="text" id="address" name="address" placeholder="123 Main Street" required>
+                    </div>
+
+                    <div style="display: grid; grid-template-columns: 2fr 1fr 1fr; gap: var(--sp-md);">
+                        <div class="form-group">
+                            <label for="city">City</label>
+                            <input type="text" id="city" name="city" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="state">State</label>
+                            <input type="text" id="state" name="state" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="postal">Postal Code</label>
+                            <input type="text" id="postal" name="postal" required>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="country">Country</label>
+                        <input type="text" id="country" name="country" value="India" required>
+                    </div>
+                </form>
+            </div>
+
+            <!-- STEP 2: PAYMENT INFORMATION -->
+            <div class="checkout-step">
+                <h3>💳 Payment Information</h3>
+                <form id="payment-form">
+                    <div class="form-group">
+                        <label for="card-name">Name on Card</label>
+                        <input type="text" id="card-name" name="cardName" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="card-number">Card Number</label>
+                        <input type="text" id="card-number" name="cardNumber" placeholder="1234 5678 9012 3456" maxlength="19" required>
+                    </div>
+
+                    <div style="display: grid; grid-template-columns: 2fr 1fr; gap: var(--sp-md);">
+                        <div class="form-group">
+                            <label for="expiry">Expiry Date</label>
+                            <input type="text" id="expiry" name="expiry" placeholder="MM/YY" maxlength="5" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="cvv">CVV</label>
+                            <input type="text" id="cvv" name="cvv" placeholder="123" maxlength="3" required>
+                        </div>
+                    </div>
+
+                    <div class="form-group" style="display: flex; align-items: center; gap: var(--sp-md);">
+                        <input type="checkbox" id="same-address" name="sameAddress" checked>
+                        <label for="same-address" style="margin: 0;">Billing address same as shipping</label>
+                    </div>
+                </form>
+            </div>
+
+            <!-- STEP 3: ORDER REVIEW -->
+            <div class="checkout-step">
+                <h3>✓ Order Review</h3>
+                <div id="order-review"></div>
+            </div>
+
+            <!-- ACTION BUTTONS -->
+            <div style="display: flex; gap: var(--sp-md); justify-content: space-between; margin-top: var(--sp-2xl);">
+                <a href="cart.html" class="btn btn-outline btn-large">Back to Cart</a>
+                <button id="place-order-btn" class="btn btn-primary btn-large">Place Order</button>
+            </div>
+        </div>
+
+        <!-- ORDER SUMMARY -->
+        <aside class="checkout-summary">
+            <h3 style="margin-bottom: var(--sp-lg);">Order Summary</h3>
+            <div id="checkout-items"></div>
+            <div style="border-top: 2px solid var(--light); padding-top: var(--sp-lg); margin-top: var(--sp-lg);">
+                <div class="summary-row">
+                    <span>Subtotal</span>
+                    <span id="checkout-subtotal">₹0</span>
+                </div>
+                <div class="summary-row">
+                    <span>Shipping</span>
+                    <span id="checkout-shipping">FREE</span>
+                </div>
+                <div class="summary-row">
+                    <span>Tax (5%)</span>
+                    <span id="checkout-tax">₹0</span>
+                </div>
+                <div class="summary-row">
+                    <span>Discount</span>
+                    <span id="checkout-discount">₹0</span>
+                </div>
+                <div class="summary-total">
+                    <span>Total</span>
+                    <span id="checkout-total">₹0</span>
+                </div>
+            </div>
+        </aside>
+    </div>
+
+    <!-- ================================================================
+         ORDER CONFIRMATION (Hidden by default)
+         ================================================================ -->
+    <div id="confirmation-container" style="display: none; max-width: 800px; margin: var(--sp-2xl) auto; text-align: center;">
+        <div style="background: linear-gradient(135deg, var(--success), var(--primary)); padding: var(--sp-2xl); border-radius: var(--radius-lg); color: white; margin-bottom: var(--sp-2xl);">
+            <div style="font-size: 64px; margin-bottom: var(--sp-lg);">✓</div>
+            <h2 style="color: white; margin-bottom: var(--sp-md);">Order Confirmed!</h2>
+            <p style="font-size: 18px; margin-bottom: var(--sp-lg);">Thank you for your purchase</p>
+            <p style="font-size: 16px; opacity: 0.9;">Your order has been received and is being processed</p>
+        </div>
+
+        <div class="card" style="margin-bottom: var(--sp-2xl);">
+            <div class="card__body">
+                <h4 style="margin-bottom: var(--sp-md);">Order Details</h4>
+                <p style="margin-bottom: var(--sp-md); font-size: 14px;">
+                    <strong>Order ID:</strong> <span id="order-id"></span>
+                </p>
+                <p style="margin-bottom: var(--sp-md); font-size: 14px;">
+                    <strong>Total Amount:</strong> <span id="order-total"></span>
+                </p>
+                <p style="margin-bottom: 0; font-size: 14px;">
+                    <strong>Delivery Time:</strong> <span id="delivery-time"></span>
+                </p>
+            </div>
+        </div>
+
+        <div style="display: flex; gap: var(--sp-md); justify-content: center; flex-wrap: wrap;">
+            <a href="index.html" class="btn btn-primary btn-large">Continue Shopping</a>
+            <a href="products.html" class="btn btn-outline btn-large">View More Products</a>
+        </div>
+    </div>
+
+    <!-- ================================================================
+         FOOTER
+         ================================================================ -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>About Toolkit</h4>
+                <p>Your one-stop destination for premium stationery and art supplies</p>
+            </div>
+            <div class="footer-section">
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="products.html">Shop</a></li>
+                    <li><a href="#">About Us</a></li>
+                    <li><a href="#">Contact</a></li>
+                    <li><a href="#">Blog</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Customer Service</h4>
+                <ul>
+                    <li><a href="#">Track Order</a></li>
+                    <li><a href="#">Returns</a></li>
+                    <li><a href="#">FAQs</a></li>
+                    <li><a href="#">Support</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Follow Us</h4>
+                <p>Connect on social media</p>
+                <div style="display: flex; gap: var(--sp-md); font-size: 24px; margin-top: var(--sp-md);">
+                    <a href="#" style="color: white; text-decoration: none;">📱</a>
+                    <a href="#" style="color: white; text-decoration: none;">🐦</a>
+                    <a href="#" style="color: white; text-decoration: none;">📸</a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 Toolkit. All rights reserved. Built for creators. 🎨</p>
+        </div>
+    </footer>
+
+    <!-- ================================================================
+         SCRIPTS
+         ================================================================ -->
+    <script src="js/data.js"></script>
+    <script src="js/cart.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/main.js"></script>
+    <script>
+        // Check if cart is empty
+        if (cartManager.getCart().length === 0) {
+            document.getElementById('checkout-form-container').innerHTML = `
+                <div class="empty-state">
+                    <div class="empty-state-icon">🛒</div>
+                    <h3>Your cart is empty</h3>
+                    <p>Add items to your cart before checking out</p>
+                    <a href="products.html" class="btn btn-primary btn-large" style="margin-top: var(--sp-md);">Continue Shopping</a>
+                </div>
+            `;
+            return;
+        }
+
+        // Render order review
+        function renderOrderReview() {
+            const cart = cartManager.getCart();
+            const subtotal = cartManager.getCartTotal();
+            const tax = Math.round(subtotal * 0.05);
+            const total = subtotal + tax;
+
+            const reviewHtml = `
+                <div style="margin-bottom: var(--sp-lg);">
+                    ${cart.map(item => `
+                        <div style="display: flex; justify-content: space-between; align-items: center; padding: var(--sp-md); border-bottom: 1px solid var(--light);">
+                            <div style="display: flex; align-items: center; gap: var(--sp-md);">
+                                <span style="font-size: 32px;">${item.image}</span>
+                                <div>
+                                    <p style="margin: 0; font-weight: 600;">${item.name}</p>
+                                    <p style="margin: 0; color: var(--gray); font-size: var(--font-size-sm);">Qty: ${item.quantity}</p>
+                                </div>
+                            </div>
+                            <span style="font-weight: 700; color: var(--primary);">${Toolkit.formatPrice(item.price * item.quantity)}</span>
+                        </div>
+                    `).join('')}
+                </div>
+            `;
+
+            document.getElementById('order-review').innerHTML = reviewHtml;
+        }
+
+        // Render checkout items sidebar
+        function renderCheckoutItems() {
+            const cart = cartManager.getCart();
+            document.getElementById('checkout-items').innerHTML = cart.map(item => `
+                <div style="display: flex; justify-content: space-between; padding: var(--sp-md); border-bottom: 1px solid var(--light);">
+                    <div>
+                        <p style="margin: 0; font-weight: 500;">${item.name}</p>
+                        <p style="margin: 0; color: var(--gray); font-size: var(--font-size-sm);">x${item.quantity}</p>
+                    </div>
+                    <span style="font-weight: 600;">${Toolkit.formatPrice(item.price * item.quantity)}</span>
+                </div>
+            `).join('');
+        }
+
+        // Update summary
+        function updateCheckoutSummary() {
+            const subtotal = cartManager.getCartTotal();
+            const tax = Math.round(subtotal * 0.05);
+            const total = subtotal + tax;
+
+            document.getElementById('checkout-subtotal').textContent = Toolkit.formatPrice(subtotal);
+            document.getElementById('checkout-tax').textContent = Toolkit.formatPrice(tax);
+            document.getElementById('checkout-total').textContent = Toolkit.formatPrice(total);
+        }
+
+        // Format card number
+        document.getElementById('card-number').addEventListener('input', (e) => {
+            let value = e.target.value.replace(/\s/g, '');
+            let formatted = value.match(/.{1,4}/g)?.join(' ') || value;
+            e.target.value = formatted;
+        });
+
+        // Format expiry date
+        document.getElementById('expiry').addEventListener('input', (e) => {
+            let value = e.target.value.replace(/\D/g, '');
+            if (value.length >= 2) {
+                value = value.substring(0, 2) + '/' + value.substring(2, 4);
+            }
+            e.target.value = value;
+        });
+
+        // CVV only numbers
+        document.getElementById('cvv').addEventListener('input', (e) => {
+            e.target.value = e.target.value.replace(/\D/g, '');
+        });
+
+        // Place order
+        document.getElementById('place-order-btn').addEventListener('click', () => {
+            // Validate shipping form
+            const shippingForm = document.getElementById('shipping-form');
+            if (!shippingForm.checkValidity()) {
+                Toolkit.showToast('Please fill in all shipping details', 'error');
+                shippingForm.reportValidity();
+                return;
+            }
+
+            // Validate payment form
+            const paymentForm = document.getElementById('payment-form');
+            if (!paymentForm.checkValidity()) {
+                Toolkit.showToast('Please fill in all payment details', 'error');
+                paymentForm.reportValidity();
+                return;
+            }
+
+            // Validate card number (basic)
+            const cardNumber = document.getElementById('card-number').value.replace(/\s/g, '');
+            if (cardNumber.length !== 16) {
+                Toolkit.showToast('Invalid card number', 'error');
+                return;
+            }
+
+            // Validate expiry (basic)
+            const expiry = document.getElementById('expiry').value;
+            if (!/^\d{2}\/\d{2}$/.test(expiry)) {
+                Toolkit.showToast('Invalid expiry date (MM/YY)', 'error');
+                return;
+            }
+
+            // Validate CVV
+            const cvv = document.getElementById('cvv').value;
+            if (cvv.length !== 3) {
+                Toolkit.showToast('Invalid CVV', 'error');
+                return;
+            }
+
+            // Get form data
+            const shippingData = {
+                firstName: document.getElementById('first-name').value,
+                lastName: document.getElementById('last-name').value,
+                email: document.getElementById('email').value,
+                phone: document.getElementById('phone').value,
+                address: document.getElementById('address').value,
+                city: document.getElementById('city').value,
+                state: document.getElementById('state').value,
+                postal: document.getElementById('postal').value,
+                country: document.getElementById('country').value
+            };
+
+            // Create order
+            const cart = cartManager.getCart();
+            const subtotal = cartManager.getCartTotal();
+            const tax = Math.round(subtotal * 0.05);
+            const total = subtotal + tax;
+
+            const order = {
+                id: Math.floor(Date.now() / 1000),
+                items: cart,
+                subtotal: subtotal,
+                tax: tax,
+                total: total,
+                shippingAddress: shippingData,
+                status: 'confirmed',
+                createdAt: new Date().toISOString(),
+                estimatedDelivery: new Date(Date.now() + 5 * 24 * 60 * 60 * 1000).toLocaleDateString('en-IN')
+            };
+
+            // Save order
+            let orders = JSON.parse(localStorage.getItem('toolkit_orders') || '[]');
+            orders.push(order);
+            localStorage.setItem('toolkit_orders', JSON.stringify(orders));
+
+            // Clear cart
+            cartManager.clearCart();
+
+            // Show confirmation
+            document.getElementById('checkout-form-container').style.display = 'none';
+            document.getElementById('confirmation-container').style.display = 'block';
+            document.getElementById('order-id').textContent = order.id;
+            document.getElementById('order-total').textContent = Toolkit.formatPrice(order.total);
+            document.getElementById('delivery-time').textContent = order.estimatedDelivery;
+
+            // Scroll to top
+            window.scrollTo(0, 0);
+            Toolkit.showToast('Order placed successfully! 🎉');
+        });
+
+        // Initial render
+        renderOrderReview();
+        renderCheckoutItems();
+        updateCheckoutSummary();
+    </script>
+</body>
+</html>
