@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Toolkit - Your Everyday Stationery, Reinvented</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <!-- HEADER & NAVIGATION -->
+    <header class="header">
+        <nav class="navbar">
+            <a href="index.html" class="logo">🎨 Toolkit</a>
+            <ul class="nav-menu">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="products.html">Shop</a></li>
+                <li><a href="#trending">Trending</a></li>
+                <li><a href="#about">About</a></li>
+            </ul>
+            <div class="nav-right">
+                <a href="cart.html" class="cart-icon">
+                    🛒
+                    <span class="cart-counter">0</span>
+                </a>
+                <button class="dark-mode-toggle" title="Toggle dark mode">🌙</button>
+                <div class="auth-container"></div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- HERO SECTION -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Your Everyday Stationery, Reinvented</h1>
+            <p>Curated collection of premium writing instruments, art supplies, and office essentials for every creator</p>
+            <div class="hero-buttons">
+                <a href="products.html" class="btn btn-primary btn-large">Explore Collection</a>
+                <a href="#trending" class="btn btn-outline btn-large">View Trending</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- FEATURED PRODUCTS -->
+    <section class="products-section">
+        <div class="section-title">
+            <h2>Featured Products</h2>
+            <p>Handpicked items from our best-selling collection</p>
+        </div>
+        <div class="products-grid" id="featured-products"></div>
+    </section>
+
+    <!-- CATEGORIES SHOWCASE -->
+    <section class="products-section" style="background-color: var(--lighter); padding: var(--sp-2xl) var(--sp-lg);">
+        <div class="section-title">
+            <h2>Shop by Category</h2>
+            <p>Find exactly what you're looking for</p>
+        </div>
+        <div class="categories-grid" id="categories-showcase"></div>
+    </section>
+
+    <!-- TRENDING ITEMS -->
+    <section class="products-section" id="trending">
+        <div class="section-title">
+            <h2>Trending Now 🔥</h2>
+            <p>The most popular items this season</p>
+        </div>
+        <div class="products-grid" id="trending-products"></div>
+    </section>
+
+    <!-- FEATURES SECTION -->
+    <section class="products-section" style="background-color: var(--lighter); padding: var(--sp-2xl) var(--sp-lg);">
+        <div class="section-title">
+            <h2>Why Choose Toolkit?</h2>
+        </div>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: var(--sp-lg);">
+            <div style="text-align: center; padding: var(--sp-lg);">
+                <div style="font-size: 48px; margin-bottom: var(--sp-md);">✨</div>
+                <h3>Premium Quality</h3>
+                <p>Carefully selected products from trusted brands</p>
+            </div>
+            <div style="text-align: center; padding: var(--sp-lg);">
+                <div style="font-size: 48px; margin-bottom: var(--sp-md);">🚀</div>
+                <h3>Fast Delivery</h3>
+                <p>Quick shipping to your doorstep with tracking</p>
+            </div>
+            <div style="text-align: center; padding: var(--sp-lg);">
+                <div style="font-size: 48px; margin-bottom: var(--sp-md);">💰</div>
+                <h3>Best Prices</h3>
+                <p>Competitive pricing with regular discounts</p>
+            </div>
+            <div style="text-align: center; padding: var(--sp-lg);">
+                <div style="font-size: 48px; margin-bottom: var(--sp-md);">🎯</div>
+                <h3>Curated Collection</h3>
+                <p>Hand-picked items for every need and style</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- NEWSLETTER -->
+    <section style="background: linear-gradient(135deg, var(--primary-light), var(--secondary-light)); padding: var(--sp-2xl) var(--sp-lg); text-align: center;">
+        <h2 style="color: var(--primary); margin-bottom: var(--sp-md);">Get Exclusive Offers</h2>
+        <p style="max-width: 500px; margin: 0 auto var(--sp-lg);">Subscribe to our newsletter for special discounts and new product launches</p>
+        <form style="max-width: 500px; margin: 0 auto; display: flex; gap: var(--sp-md);">
+            <input type="email" placeholder="Enter your email" required style="flex: 1; padding: var(--sp-sm) var(--sp-md); border: none; border-radius: var(--radius-md); border: 2px solid white;">
+            <button type="submit" class="btn btn-primary btn-large">Subscribe</button>
+        </form>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>About Toolkit</h4>
+                <p>Your one-stop destination for premium stationery and art supplies</p>
+            </div>
+            <div class="footer-section">
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="products.html">Shop</a></li>
+                    <li><a href="#">About Us</a></li>
+                    <li><a href="#">Contact</a></li>
+                    <li><a href="#">Blog</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Customer Service</h4>
+                <ul>
+                    <li><a href="#">Track Order</a></li>
+                    <li><a href="#">Returns</a></li>
+                    <li><a href="#">FAQs</a></li>
+                    <li><a href="#">Support</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Follow Us</h4>
+                <p>Connect on social media</p>
+                <div style="display: flex; gap: var(--sp-md); font-size: 24px; margin-top: var(--sp-md);">
+                    <a href="#" style="color: white; text-decoration: none;">📱</a>
+                    <a href="#" style="color: white; text-decoration: none;">🐦</a>
+                    <a href="#" style="color: white; text-decoration: none;">📸</a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 Toolkit. All rights reserved. Built for creators. 🎨</p>
+        </div>
+    </footer>
+
+    <!-- LOGIN MODAL -->
+    <div id="login-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Welcome Back</h3>
+                <button class="modal-close" data-close-modal>&times;</button>
+            </div>
+            <form id="login-form">
+                <div class="form-group">
+                    <label for="login-email">Email</label>
+                    <input type="email" id="login-email" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="login-password">Password</label>
+                    <input type="password" id="login-password" name="password" required>
+                </div>
+                <p style="font-size: var(--font-size-xs); color: var(--gray); margin-bottom: var(--sp-md);">
+                    Demo credentials: demo@toolkit.com / demo123
+                </p>
+                <button type="submit" class="btn btn-primary btn-large btn-block">Login</button>
+                <p style="text-align: center; margin-top: var(--sp-md);">
+                    Don't have an account? <a href="#" data-modal="signup-modal">Sign up</a>
+                </p>
+            </form>
+        </div>
+    </div>
+
+    <!-- SIGNUP MODAL -->
+    <div id="signup-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Create Account</h3>
+                <button class="modal-close" data-close-modal>&times;</button>
+            </div>
+            <form id="signup-form">
+                <div class="form-group">
+                    <label for="signup-name">Full Name</label>
+                    <input type="text" id="signup-name" name="name" required>
+                </div>
+                <div class="form-group">
+                    <label for="signup-email">Email</label>
+                    <input type="email" id="signup-email" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="signup-password">Password</label>
+                    <input type="password" id="signup-password" name="password" required>
+                </div>
+                <button type="submit" class="btn btn-primary btn-large btn-block">Sign Up</button>
+                <p style="text-align: center; margin-top: var(--sp-md);">
+                    Already have an account? <a href="#" data-modal="login-modal">Login</a>
+                </p>
+            </form>
+        </div>
+    </div>
+
+    <!-- SCRIPTS -->
+    <script src="js/data.js"></script>
+    <script src="js/cart.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/main.js"></script>
+    <script>
+        // Render featured products
+        const featuredContainer = document.getElementById('featured-products');
+        const featured = getFeaturedProducts();
+        featuredContainer.innerHTML = featured.map(product => `
+            <div class="product-card" data-product-id="${product.id}">
+                <div class="product-image">${product.image}</div>
+                <div class="product-content">
+                    <h3 class="product-name">${product.name}</h3>
+                    <p class="product-category">${CATEGORIES[product.category].name}</p>
+                    <div class="product-rating">
+                        <span class="stars">${'⭐'.repeat(Math.round(product.rating))}</span>
+                        <span class="rating-value">${product.rating}</span>
+                    </div>
+                    <div class="product-footer">
+                        <span class="product-price">${Toolkit.formatPrice(product.price)}</span>
+                        <button class="btn btn-add-to-cart" data-product-id="${product.id}">🛒 Add</button>
+                    </div>
+                </div>
+            </div>
+        `).join('');
+
+        featuredContainer.querySelectorAll('.btn-add-to-cart').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                e.preventDefault();
+                const productId = parseInt(btn.getAttribute('data-product-id'));
+                const product = PRODUCTS.find(p => p.id === productId);
+                if (product) {
+                    cartManager.addToCart(product, 1);
+                    Toolkit.showToast(`${product.name} added to cart! 🛒`);
+                }
+            });
+        });
+
+        featuredContainer.querySelectorAll('.product-card').forEach(card => {
+            card.addEventListener('click', (e) => {
+                if (!e.target.closest('.btn-add-to-cart')) {
+                    const productId = card.getAttribute('data-product-id');
+                    window.location.href = `product.html?id=${productId}`;
+                }
+            });
+        });
+
+        // Render trending products
+        const trendingContainer = document.getElementById('trending-products');
+        const trending = getTrendingProducts();
+        trendingContainer.innerHTML = trending.map(product => `
+            <div class="product-card" data-product-id="${product.id}">
+                <div class="product-image">${product.image}</div>
+                <div class="product-content">
+                    <h3 class="product-name">${product.name}</h3>
+                    <p class="product-category">${CATEGORIES[product.category].name}</p>
+                    <div class="product-rating">
+                        <span class="stars">${'⭐'.repeat(Math.round(product.rating))}</span>
+                        <span class="rating-value">${product.rating}</span>
+                    </div>
+                    <div class="product-footer">
+                        <span class="product-price">${Toolkit.formatPrice(product.price)}</span>
+                        <button class="btn btn-add-to-cart" data-product-id="${product.id}">🛒 Add</button>
+                    </div>
+                </div>
+            </div>
+        `).join('');
+
+        trendingContainer.querySelectorAll('.btn-add-to-cart').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                e.preventDefault();
+                const productId = parseInt(btn.getAttribute('data-product-id'));
+                const product = PRODUCTS.find(p => p.id === productId);
+                if (product) {
+                    cartManager.addToCart(product, 1);
+                    Toolkit.showToast(`${product.name} added to cart! 🛒`);
+                }
+            });
+        });
+
+        trendingContainer.querySelectorAll('.product-card').forEach(card => {
+            card.addEventListener('click', (e) => {
+                if (!e.target.closest('.btn-add-to-cart')) {
+                    const productId = card.getAttribute('data-product-id');
+                    window.location.href = `product.html?id=${productId}`;
+                }
+            });
+        });
+
+        // Render categories
+        const categoriesContainer = document.getElementById('categories-showcase');
+        categoriesContainer.style.display = 'grid';
+        categoriesContainer.style.gridTemplateColumns = 'repeat(auto-fit, minmax(180px, 1fr))';
+        categoriesContainer.style.gap = 'var(--sp-lg)';
+
+        Object.entries(CATEGORIES).forEach(([key, category]) => {
+            const categoryEl = document.createElement('div');
+            categoryEl.style.cssText = `
+                padding: var(--sp-lg);
+                background-color: white;
+                border-radius: var(--radius-lg);
+                text-align: center;
+                cursor: pointer;
+                transition: all var(--transition);
+                box-shadow: var(--shadow-sm);
+            `;
+            categoryEl.innerHTML = `
+                <div style="font-size: 48px; margin-bottom: var(--sp-md);">${category.icon}</div>
+                <h4>${category.name}</h4>
+            `;
+            categoryEl.addEventListener('click', () => {
+                window.location.href = `products.html?category=${key}`;
+            });
+            categoryEl.addEventListener('mouseenter', () => {
+                categoryEl.style.transform = 'translateY(-8px)';
+                categoryEl.style.boxShadow = 'var(--shadow-lg)';
+            });
+            categoryEl.addEventListener('mouseleave', () => {
+                categoryEl.style.transform = 'translateY(0)';
+                categoryEl.style.boxShadow = 'var(--shadow-sm)';
+            });
+            categoriesContainer.appendChild(categoryEl);
+        });
+
+        // Login handler
+        document.getElementById('login-form').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const email = document.getElementById('login-email').value;
+            const password = document.getElementById('login-password').value;
+            const result = authManager.login(email, password);
+            if (result.success) {
+                Toolkit.showToast('Logged in successfully! 🎉');
+                Toolkit.closeModal('login-modal');
+                updateAuthUI();
+                setTimeout(() => window.location.reload(), 1000);
+            } else {
+                Toolkit.showToast(result.message, 'error');
+            }
+        });
+
+        // Signup handler
+        document.getElementById('signup-form').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const name = document.getElementById('signup-name').value;
+            const email = document.getElementById('signup-email').value;
+            const password = document.getElementById('signup-password').value;
+            const result = authManager.signUp(email, password, name);
+            if (result.success) {
+                Toolkit.showToast('Account created! Welcome to Toolkit! 🎉');
+                Toolkit.closeModal('signup-modal');
+                updateAuthUI();
+                setTimeout(() => window.location.reload(), 1000);
+            } else {
+                Toolkit.showToast(result.message, 'error');
+            }
+        });
+
+        // Newsletter
+        document.querySelector('form').addEventListener('submit', (e) => {
+            e.preventDefault();
+            Toolkit.showToast('Thanks for subscribing! Check your email for exclusive offers 📧');
+            e.target.reset();
+        });
+    </script>
+</body>
+</html>
